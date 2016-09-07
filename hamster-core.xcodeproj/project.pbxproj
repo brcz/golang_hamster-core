@@ -6,10 +6,15 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		E40CBF2D1D8028B200DDB148 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		E40CBF211D8024F900DDB148 = {
 			isa = PBXGroup;
 			children = (
+				E40CBF2D1D8028B200DDB148 /* src */,
 			);
 			sourceTree = "<group>";
 		};
@@ -18,11 +23,12 @@
 /* Begin PBXLegacyTarget section */
 		E40CBF261D8024F900DDB148 /* hamster-core */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
+			buildArgumentsString = "$(ACTION) build";
 			buildConfigurationList = E40CBF291D8024F900DDB148 /* Build configuration list for PBXLegacyTarget "hamster-core" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/local/go/bin/go;
+			buildWorkingDirectory = "/Users/kyevdokimov/vm_shared/_golang_xcode/hamster-core/src";
 			dependencies = (
 			);
 			name = "hamster-core";
@@ -140,6 +146,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GOPATH = "/Users/kyevdokimov/vm_shared/_golang_xcode/hamster-core";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -150,6 +157,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GOPATH = "/Users/kyevdokimov/vm_shared/_golang_xcode/hamster-core";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
