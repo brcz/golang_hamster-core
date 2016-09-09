@@ -2,17 +2,16 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
 // NewWorker creates, and returns a new Worker object. Its only argument
 // is a channel that the worker can add itself to whenever it is done its
 // work.
-func NewWorker(id int, workerQueue chan chan WorkRequest) Worker {
+func NewWorker(id int, workerQueue chan chan JobRequest) Worker {
 	// Create, and return the worker.
 	worker := Worker{
 		ID:          id,
-		Work:        make(chan WorkRequest),
+		Job:         make(chan JobRequest),
 		WorkerQueue: workerQueue,
 		QuitChan:    make(chan bool)}
 
@@ -21,8 +20,8 @@ func NewWorker(id int, workerQueue chan chan WorkRequest) Worker {
 
 type Worker struct {
 	ID          int
-	Work        chan WorkRequest
-	WorkerQueue chan chan WorkRequest
+	Job         chan JobRequest
+	WorkerQueue chan chan JobRequest
 	QuitChan    chan bool
 }
 
@@ -32,15 +31,13 @@ func (w *Worker) Start() {
 	go func() {
 		for {
 			// Add ourselves into the worker queue.
-			w.WorkerQueue <- w.Work
+			w.WorkerQueue <- w.Job
 
 			select {
-			case work := <-w.Work:
-				// Receive a work request.
-				fmt.Printf("worker%d: Received work request, delaying for %f seconds\n", w.ID, work.Delay.Seconds())
-
-				time.Sleep(work.Delay)
-				fmt.Printf("worker%d: Hello, %s!\n", w.ID, work.Name)
+			case job := <-w.Job:
+				// Receive a job request.
+				fmt.Println("job recieved", job.Payload)
+				job.Payload.process()
 
 			case <-w.QuitChan:
 				// We have been asked to stop.

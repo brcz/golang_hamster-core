@@ -1,14 +1,12 @@
 package main
 
-// job collector that handle incoming HTTP jobs
-
 import (
 	"fmt"
 	"net/http"
 	"time"
 )
 
-func Collector(w http.ResponseWriter, r *http.Request) {
+func CollectorHTTP(w http.ResponseWriter, r *http.Request) {
 	// Make sure we can only be called with an HTTP POST request.
 	if r.Method != "POST" {
 		w.Header().Set("Allow", "POST")
@@ -39,11 +37,11 @@ func Collector(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Now, we take the delay, and the person's name, and make a WorkRequest out of them.
-	work := WorkRequest{Name: name, Delay: delay}
+	work := JobRequest{Payload: JobHTTP{Name: name, Delay: delay}}
 
 	// Push the work onto the queue.
-	WorkQueue <- work
-	fmt.Println("Work request queued")
+	JobQueue <- work
+	fmt.Println("Job request queued", work)
 
 	// And let the user know their work request was created.
 	w.WriteHeader(http.StatusCreated)

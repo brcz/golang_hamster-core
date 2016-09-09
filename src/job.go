@@ -1,13 +1,15 @@
 package main
 
 //import "errors"
-import "time"
 
-type Job struct {
+// job request placed into queue channel
+type JobRequest struct {
 	Payload Payload
 }
 
-type WorkRequest struct {
-	Name  string
-	Delay time.Duration
+// job payload. every type of payload able to run Process method.
+// TODO: think about
+type Payload interface {
+	process()
+	shutdown()
 }
