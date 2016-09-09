@@ -13,3 +13,6 @@ type Payload interface {
 	process()
 	shutdown()
 }
+
+// payload status type (processing, wait for data, etc)
+type Status int

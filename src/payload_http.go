@@ -9,6 +9,9 @@ import (
 type JobHTTP struct {
 	Name  string
 	Delay time.Duration
+
+	status Status //maybe its a long processed payload. than status represents current status
+	error  error
 }
 
 func (jh JobHTTP) process() {
@@ -19,21 +22,5 @@ func (jh JobHTTP) process() {
 }
 
 func (jh JobHTTP) shutdown() {
-	return
-}
-
-// Payload type for Modbus jobs
-type JobModbus struct {
-	address      uint16
-	registryType int
-	data         []byte
-}
-
-func (jm JobModbus) process() {
-	fmt.Println("processing Modbus job")
-	return
-}
-
-func (jm JobModbus) shutdown() {
 	return
 }
